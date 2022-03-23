@@ -1,7 +1,9 @@
-FROM golang:1.17.6-alpine as builder
+FROM golang:1.17.6 as builder
 ENV GO111MODULE=on
-RUN apk update && \
-    apk add upx
+
+RUN apt-get update \
+    && apt-get install -y upx \
+    && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /build
 COPY go.mod /build
